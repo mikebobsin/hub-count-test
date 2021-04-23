@@ -47,6 +47,7 @@
 import StyledButton from "@/components/atoms/StyledButton.vue";
 import StyledInput from "@/components/atoms/StyledInput.vue";
 import StyledList from "@/components/atoms/StyledList.vue";
+import { useToast } from "vue-toastification";
 
 export default {
     name: "zipcode-form",
@@ -61,10 +62,14 @@ export default {
             zipCode: "",
         };
     },
+    setup() {
+        const toast = useToast();
+        return { toast };
+    },
     methods: {
         sendClick() {
             if (this.name === "" || this.zipCode === "") {
-                alert("Please fill the empty input");
+                this.toast.warning("Preencha todos os campos!");
             } else {
                 this.$store.dispatch("postShipping", {
                     name: this.name,
