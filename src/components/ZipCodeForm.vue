@@ -6,6 +6,8 @@
                     :iptPlaceHolder="'João da Silva'"
                     :iptSize="['510px', '38px']"
                     :iptLabel="'Digite seu nome'"
+                    :iptName="'name'"
+                    v-model:inputedValue="name"
                 />
             </div>
             <div class="ipt-col col">
@@ -13,21 +15,24 @@
                     :iptPlaceHolder="'93228-300'"
                     :iptSize="['300px', '38px']"
                     :iptLabel="'Digite seu CEP'"
+                    :iptName="'zipcode'"
+                    v-model:inputedValue="zipCode"
                 />
             </div>
-            <div class="ipt-button col">
+            <div class="btn-col col">
                 <styled-button
                     :btnText="'Adicionar'"
                     :btnSize="['158px', '38px']"
                     :btnBgColor="'#003B4D'"
                     :btnFontColor="'#FFFFFF'"
+                    @click="sendClick($event)"
                 />
             </div>
         </div>
         <div>
             <styled-list />
         </div>
-        <div class="last-row row">
+        <div class="btn-row row">
             <styled-button
                 :btnText="'Calcular fretes'"
                 :btnSize="['158px', '38px']"
@@ -50,6 +55,24 @@ export default {
         "styled-input": StyledInput,
         "styled-list": StyledList,
     },
+    data() {
+        return {
+            name: "",
+            zipCode: "",
+        };
+    },
+    methods: {
+        sendClick() {
+            if (this.name === "" || this.zipCode === "") {
+                alert("Please fill the empty input");
+            } else {
+                this.$store.dispatch("postShipping", {
+                    name: this.name,
+                    zipCode: this.zipCode,
+                });
+            }
+        },
+    },
 };
 </script>
 <style lang="scss" scoped>
@@ -62,10 +85,10 @@ export default {
 .ipt-col {
     padding-left: 0px;
 }
-.ipt-button {
-    padding: 15px 0 0 100px;
+.btn-col {
+    padding: 15px 0 0 105px;
 }
-.last-row {
+.btn-row {
     justify-content: flex-end;
     padding: 30px 0px;
     width: 100%;

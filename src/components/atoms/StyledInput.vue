@@ -3,10 +3,11 @@
         <label for="styledInput">{{ iptLabel }}</label>
         <input
             v-model.trim="inputedValue"
+            @input="$emit('update:inputedValue', $event.target.value)"
             type="text"
             :placeholder="iptPlaceHolder"
+            :id="`${iptName}-input`"
             class="form-control"
-            id="styledInput"
             :aria-describedby="`${iptLabel}`"
             :style="`width:${iptSize[0]}; heigth:${iptSize[1]};`"
         />
@@ -22,8 +23,10 @@ export default {
     },
     props: {
         iptPlaceHolder: String,
+        iptName: String,
         iptSize: Array,
         iptLabel: String,
+        isClicked: String,
     },
 };
 </script>

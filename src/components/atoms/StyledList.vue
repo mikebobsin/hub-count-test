@@ -1,12 +1,13 @@
 <template>
     <div>
+        <p v-if="getShippingData.length === 0">Nothing to see here</p>
         <ul
-            v-for="item in 4"
-            :key="item"
+            v-for="(item, index) in getShippingData"
+            :key="index"
             class="list-group list-group-horizontal"
         >
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">{{ item.name }}</li>
+            <li class="list-group-item">{{ item.zipCode }}</li>
             <li class="list-group-item">
                 <styled-button
                     :btnSize="['38px', '38px']"
@@ -26,12 +27,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import StyledButton from "@/components/atoms/StyledButton";
 export default {
     name: "styled-list",
     components: {
         "styled-button": StyledButton,
     },
+    computed: mapGetters(["getShippingData"]),
 };
 </script>
 
