@@ -34,14 +34,17 @@
         <div>
             <styled-list />
         </div>
-        <div v-if="allowShipping" class="btn-row row">
-            <styled-button
-                :btnText="'Calcular fretes'"
-                :btnSize="['158px', '38px']"
-                :btnBgColor="'#003B4D'"
-                :btnFontColor="'#FFFFFF'"
-            />
-        </div>
+        <!-- TODO: Create a click to calculate shipping -->
+        <router-link to="/shipping">
+            <div v-if="allowShipping" class="btn-row row">
+                <styled-button
+                    :btnText="'Calcular fretes'"
+                    :btnSize="['158px', '38px']"
+                    :btnBgColor="'#003B4D'"
+                    :btnFontColor="'#FFFFFF'"
+                />
+            </div>
+        </router-link>
     </div>
 </template>
 

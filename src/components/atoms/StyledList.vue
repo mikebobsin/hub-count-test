@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- TODO: Create css to display this <p> message well -->
         <p v-if="getShippingData.length === 0">Nothing to see here</p>
         <ul
             v-for="(item, index) in getShippingData"
@@ -16,6 +17,7 @@
                 />
                 <span v-else>{{ item.name }}</span>
             </li>
+            <!-- TODO: Customize both input from list -->
             <li class="list-group-item">
                 <styled-input
                     v-if="activeEdit == item"

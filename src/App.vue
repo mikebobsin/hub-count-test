@@ -3,6 +3,7 @@
         <h1>HubFrete</h1>
         <!-- <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link> -->
+        <!-- TODO: Customize mobile view -->
     </div>
     <router-view />
 </template>

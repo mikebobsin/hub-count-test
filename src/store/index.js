@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 
 export default createStore({
+    // TODO: install axios and get values from API
     state: {
         shippingData: [],
     },
