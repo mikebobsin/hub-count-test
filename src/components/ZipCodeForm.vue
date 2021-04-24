@@ -4,19 +4,21 @@
             <div class="ipt-col col">
                 <styled-input
                     :iptPlaceHolder="'João da Silva'"
-                    :iptSize="['510px', '38px']"
-                    :iptLabel="'Digite seu nome'"
+                    :iptSize="['498px', '38px']"
+                    :iptLabel="'Digite seu nome completo'"
                     :iptName="'name'"
-                    v-model:inputedValue="name"
+                    ref="nameInput"
+                    v-model:inputedValue.trim="name"
                 />
             </div>
             <div class="ipt-col col">
                 <styled-input
                     :iptPlaceHolder="'93228-300'"
-                    :iptSize="['300px', '38px']"
+                    :iptSize="['310px', '38px']"
                     :iptLabel="'Digite seu CEP'"
                     :iptName="'zipcode'"
-                    v-model:inputedValue="zipCode"
+                    ref="zipcodeInput"
+                    v-model:inputedValue.trim="zipCode"
                 />
             </div>
             <div class="btn-col col">
@@ -32,7 +34,7 @@
         <div>
             <styled-list />
         </div>
-        <div class="btn-row row">
+        <div v-if="allowShipping" class="btn-row row">
             <styled-button
                 :btnText="'Calcular fretes'"
                 :btnSize="['158px', '38px']"
@@ -60,6 +62,7 @@ export default {
         return {
             name: "",
             zipCode: "",
+            allowShipping: false,
         };
     },
     setup() {
@@ -67,15 +70,31 @@ export default {
         return { toast };
     },
     methods: {
-        sendClick() {
-            if (this.name === "" || this.zipCode === "") {
-                this.toast.warning("Preencha todos os campos!");
-            } else {
+        sendClick(e) {
+            if (this.name !== "" && this.zipCode !== "") {
                 this.$store.dispatch("postShipping", {
                     name: this.name,
                     zipCode: this.zipCode,
                 });
+                this.allowShipping = true;
             }
+            if (this.name === "") {
+                this.toast.warning("Preencha seu nome completo!", {
+                    position: "bottom-left",
+                });
+            }
+            if (this.zipCode === "") {
+                this.toast.warning("Preencha o CEP!", {
+                    position: "bottom-left",
+                });
+            }
+
+            this.$refs.nameInput.inputedValue = "";
+            this.name = "";
+            this.$refs.zipcodeInput.inputedValue = "";
+            this.zipCode = "";
+
+            e.preventDefault();
         },
     },
 };

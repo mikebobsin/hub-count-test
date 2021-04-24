@@ -26,7 +26,6 @@ export default {
         iptName: String,
         iptSize: Array,
         iptLabel: String,
-        isClicked: String,
     },
 };
 </script>

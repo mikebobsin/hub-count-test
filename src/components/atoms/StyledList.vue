@@ -6,20 +6,49 @@
             :key="index"
             class="list-group list-group-horizontal"
         >
-            <li class="list-group-item">{{ item.name }}</li>
-            <li class="list-group-item">{{ item.zipCode }}</li>
+            <li class="list-group-item">
+                <styled-input
+                    v-if="activeEdit == item"
+                    :iptSize="['465px', '38px']"
+                    :iptName="'name'"
+                    ref="nameInput"
+                    v-model:inputedValue.trim="item.name"
+                />
+                <span v-else>{{ item.name }}</span>
+            </li>
+            <li class="list-group-item">
+                <styled-input
+                    v-if="activeEdit == item"
+                    :iptSize="['310px', '38px']"
+                    :iptName="'zipcode'"
+                    ref="zipcodeInput"
+                    v-model:inputedValue.trim="item.zipCode"
+                />
+                <span v-else>{{ item.zipCode }}</span>
+            </li>
             <li class="list-group-item">
                 <styled-button
                     :btnSize="['38px', '38px']"
                     :btnIcon="'bi bi-trash-fill'"
                     :btnBgColor="'#003B4D'"
                     :btnFontColor="'#FFFFFF'"
+                    @click="remove(index)"
                 />
                 <styled-button
+                    v-if="activeEdit == item"
+                    :btnSize="['38px', '38px']"
+                    :btnIcon="'bi bi-check-circle-fill'"
+                    :btnBgColor="'#003B4D'"
+                    :btnFontColor="'#FFFFFF'"
+                    @click="hasEdited(item)"
+                />
+                <styled-button
+                    v-else
                     :btnSize="['38px', '38px']"
                     :btnIcon="'bi bi-pencil-fill'"
                     :btnBgColor="'#003B4D'"
                     :btnFontColor="'#FFFFFF'"
+                    @click="edit(item)"
                 />
             </li>
         </ul>
@@ -29,12 +58,30 @@
 <script>
 import { mapGetters } from "vuex";
 import StyledButton from "@/components/atoms/StyledButton";
+import StyledInput from "@/components/atoms/StyledInput.vue";
 export default {
     name: "styled-list",
     components: {
         "styled-button": StyledButton,
+        "styled-input": StyledInput,
+    },
+    data() {
+        return {
+            activeEdit: "",
+        };
     },
     computed: mapGetters(["getShippingData"]),
+    methods: {
+        remove(i) {
+            this.getShippingData.splice(i, 1);
+        },
+        edit(text) {
+            this.activeEdit = text;
+        },
+        hasEdited() {
+            this.activeEdit = "";
+        },
+    },
 };
 </script>
 
