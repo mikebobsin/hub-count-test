@@ -14,17 +14,43 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in 10" :key="index">
+                <tr v-for="(item, index) in data" :key="index">
                     <th scope="row">{{ index + 1 }}</th>
-                    <td>teste1</td>
-                    <td>teste2</td>
-                    <td>teste3</td>
-                    <td>teste4</td>
-                    <td>teste5</td>
-                    <td>teste6</td>
+                    <td>{{ getShippingData[index].name }}</td>
+                    <td>{{ item.cep }}</td>
+                    <td>{{ item.uf }}</td>
+                    <td>{{ item.localidade }}</td>
+                    <td>{{ item.logradouro }}</td>
+                    <td>{{ item.bairro }}</td>
                     <td>teste7</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </template>
+<script>
+import { mapGetters } from "vuex";
+import axios from "axios";
+export default {
+    name: "styled-table",
+    data() {
+        return { data: [] };
+    },
+    computed: mapGetters(["getShippingData"]),
+    created() {
+        this.getZipCode();
+    },
+    methods: {
+        getZipCode() {
+            // console.log(this.getShippingData);
+            this.getShippingData.map((z) => {
+                axios
+                    .get(`http://viacep.com.br/ws/${z.zipCode}/json/`)
+                    .then((response) => {
+                        this.data.push(response.data);
+                    });
+            });
+        },
+    },
+};
+</script>

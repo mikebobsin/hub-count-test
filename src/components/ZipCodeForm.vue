@@ -35,20 +35,21 @@
             <styled-list />
         </div>
         <!-- TODO: Create a click to calculate shipping -->
-        <router-link to="/shipping">
-            <div v-if="allowShipping" class="btn-row row">
+        <div v-if="allowShipping" class="btn-row row">
+            <router-link to="/shipping">
                 <styled-button
                     :btnText="'Calcular fretes'"
                     :btnSize="['158px', '38px']"
                     :btnBgColor="'#003B4D'"
                     :btnFontColor="'#FFFFFF'"
                 />
-            </div>
-        </router-link>
+            </router-link>
+        </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import StyledButton from "@/components/atoms/StyledButton.vue";
 import StyledInput from "@/components/atoms/StyledInput.vue";
 import StyledList from "@/components/atoms/StyledList.vue";
@@ -72,6 +73,7 @@ export default {
         const toast = useToast();
         return { toast };
     },
+    computed: mapGetters(["getShippingData"]),
     methods: {
         sendClick(e) {
             if (this.name !== "" && this.zipCode !== "") {
@@ -99,6 +101,9 @@ export default {
 
             e.preventDefault();
         },
+        // sendShippingData(data) {
+        //     this.$store.dispatch("getZipCode", data);
+        // },
     },
 };
 </script>
