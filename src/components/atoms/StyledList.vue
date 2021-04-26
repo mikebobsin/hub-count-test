@@ -1,7 +1,9 @@
 <template>
     <div>
         <!-- TODO: Create css to display this <p> message well -->
-        <p v-if="getShippingData.length === 0">Nothing to see here</p>
+        <p class="ph-txt" v-if="getShippingData.length === 0">
+            Digite seu nome e o CEP que deseja calcular o frete.
+        </p>
         <ul
             v-for="(item, index) in getShippingData"
             :key="index"
@@ -94,6 +96,9 @@ $bgcolor2: #1f5566;
 $txtcolor: #ffffff;
 $opacity: 1;
 
+.ph-txt {
+    padding: 45px 0;
+}
 ul {
     margin: 0 auto;
     width: 100%;

@@ -34,7 +34,6 @@
         <div>
             <styled-list />
         </div>
-        <!-- TODO: Create a click to calculate shipping -->
         <div v-if="allowShipping" class="btn-row row">
             <router-link to="/shipping">
                 <styled-button
