@@ -123,7 +123,12 @@ export default {
         getZipCode() {
             this.getShippingData.map((z) => {
                 axios
-                    .get(`http://viacep.com.br/ws/${z.zipCode}/json/`)
+                    .get(
+                        `http://viacep.com.br/ws/${z.zipCode.replace(
+                            "-",
+                            ""
+                        )}/json/`
+                    )
                     .then((response) => {
                         this.data.push(response.data);
                         this.region.map((r) => {

@@ -8,6 +8,7 @@
                     :btnSize="['450px', '38px']"
                     :btnBgColor="'#1aae9f'"
                     :btnFontColor="'#FFFFFF'"
+                    @click="$store.state.shippingData = []"
                 />
             </router-link>
 

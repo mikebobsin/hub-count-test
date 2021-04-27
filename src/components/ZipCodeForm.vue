@@ -17,6 +17,7 @@
                     :iptSize="['310px', '38px']"
                     :iptLabel="'Digite seu CEP'"
                     :iptName="'zipcode'"
+                    v-mask="'#####-###'"
                     ref="zipcodeInput"
                     v-model:inputedValue.trim="zipCode"
                 />
@@ -48,7 +49,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import StyledButton from "@/components/atoms/StyledButton.vue";
 import StyledInput from "@/components/atoms/StyledInput.vue";
 import StyledList from "@/components/atoms/StyledList.vue";
@@ -72,14 +72,11 @@ export default {
         const toast = useToast();
         return { toast };
     },
-    computed: mapGetters(["getShippingData"]),
     methods: {
         sendClick(e) {
             if (this.name !== "" && this.zipCode !== "") {
                 let regexp = /[0-9]{5}-[\d]{3}/g;
                 if (regexp.test(this.zipCode)) {
-                    this.zipCode = this.zipCode.replace("-", "");
-
                     this.$store.dispatch("postShipping", {
                         name: this.name,
                         zipCode: this.zipCode,
