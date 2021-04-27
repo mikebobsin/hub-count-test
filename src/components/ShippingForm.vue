@@ -61,11 +61,12 @@ $desktop: 960px;
 }
 @media (min-width: $mobile) and (max-width: $max-mobile) {
     .c-row {
+        margin: 25px 0 0 0;
         a {
             padding: 0 5px 0 0;
             width: 100%;
             button {
-                width: 100%;
+                width: 100% !important;
             }
         }
     }

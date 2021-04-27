@@ -1,7 +1,6 @@
 <template>
     <div id="nav">
         <h1>HubFrete</h1>
-        <!-- TODO: Customize mobile view -->
     </div>
     <router-view />
 </template>
