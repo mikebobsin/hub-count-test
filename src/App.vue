@@ -1,9 +1,11 @@
 <template>
     <div id="nav">
         <h1>HubFrete</h1>
-        <!-- <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link> -->
         <!-- TODO: Customize mobile view -->
+        <!-- TODO: Validate input field -->
+        <!-- TODO: Fix see shipping values buttom -->
+        <!-- TODO: Customize input on list and get previus values -->
+        <!-- TODO: Look for better collors -->
     </div>
     <router-view />
 </template>

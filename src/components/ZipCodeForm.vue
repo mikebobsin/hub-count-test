@@ -25,7 +25,7 @@
                 <styled-button
                     :btnText="'Adicionar'"
                     :btnSize="['158px', '38px']"
-                    :btnBgColor="'#003B4D'"
+                    :btnBgColor="'#1aae9f'"
                     :btnFontColor="'#FFFFFF'"
                     @click="sendClick($event)"
                 />
@@ -39,7 +39,7 @@
                 <styled-button
                     :btnText="'Calcular fretes'"
                     :btnSize="['158px', '38px']"
-                    :btnBgColor="'#003B4D'"
+                    :btnBgColor="'#1aae9f'"
                     :btnFontColor="'#FFFFFF'"
                 />
             </router-link>
@@ -76,11 +76,20 @@ export default {
     methods: {
         sendClick(e) {
             if (this.name !== "" && this.zipCode !== "") {
-                this.$store.dispatch("postShipping", {
-                    name: this.name,
-                    zipCode: this.zipCode,
-                });
-                this.allowShipping = true;
+                let regexp = /[0-9]{5}-[\d]{3}/g;
+                if (regexp.test(this.zipCode)) {
+                    this.zipCode = this.zipCode.replace("-", "");
+
+                    this.$store.dispatch("postShipping", {
+                        name: this.name,
+                        zipCode: this.zipCode,
+                    });
+                    this.allowShipping = true;
+                } else {
+                    this.toast.error("Preencha o CEP no formato correto!", {
+                        position: "bottom-left",
+                    });
+                }
             }
             if (this.name === "") {
                 this.toast.warning("Preencha seu nome completo!", {
@@ -100,9 +109,6 @@ export default {
 
             e.preventDefault();
         },
-        // sendShippingData(data) {
-        //     this.$store.dispatch("getZipCode", data);
-        // },
     },
 };
 </script>

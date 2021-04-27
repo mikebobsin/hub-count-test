@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <!-- TODO: Create css to display this <p> message well -->
+    <div :class="getShippingData.length === 0 ? '' : 'list'">
         <p class="ph-txt" v-if="getShippingData.length === 0">
             Digite seu nome e o CEP que deseja calcular o frete.
         </p>
@@ -34,7 +33,7 @@
                 <styled-button
                     :btnSize="['38px', '38px']"
                     :btnIcon="'bi bi-trash-fill'"
-                    :btnBgColor="'#003B4D'"
+                    :btnBgColor="'#e60a0a'"
                     :btnFontColor="'#FFFFFF'"
                     @click="remove(index)"
                 />
@@ -42,7 +41,7 @@
                     v-if="activeEdit == item"
                     :btnSize="['38px', '38px']"
                     :btnIcon="'bi bi-check-circle-fill'"
-                    :btnBgColor="'#003B4D'"
+                    :btnBgColor="'#4caf50'"
                     :btnFontColor="'#FFFFFF'"
                     @click="hasEdited(item)"
                 />
@@ -50,7 +49,7 @@
                     v-else
                     :btnSize="['38px', '38px']"
                     :btnIcon="'bi bi-pencil-fill'"
-                    :btnBgColor="'#003B4D'"
+                    :btnBgColor="'#03a9f4'"
                     :btnFontColor="'#FFFFFF'"
                     @click="edit(item)"
                 />
@@ -91,49 +90,53 @@ export default {
 
 <style lang="scss" scoped>
 $radius: 0px;
-$bgcolor1: #004459;
-$bgcolor2: #1f5566;
-$txtcolor: #ffffff;
+$bgcolor1: #f9fafc;
+$bgcolor2: #ffffff;
+$txtcolor: #000;
 $opacity: 1;
 
 .ph-txt {
     padding: 45px 0;
 }
-ul {
-    margin: 0 auto;
-    width: 100%;
-    z-index: -9;
-    border-radius: $radius;
-    &:nth-child(even) {
+.list {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-bottom: none;
+    ul {
+        margin: 0 auto;
+        width: 100%;
+        z-index: -9;
         border-radius: $radius;
+        &:nth-child(even) {
+            border-radius: $radius;
 
-        li {
-            width: 100%;
-            border: none;
-            color: $txtcolor;
-            background-color: $bgcolor1;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 5px 10px 5px 20px;
-            &:last-child {
-                width: 20%;
+            li {
+                width: 100%;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+                color: $txtcolor;
+                background-color: $bgcolor1;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 5px 10px 5px 20px;
+                &:last-child {
+                    width: 20%;
+                }
             }
         }
-    }
-    &:nth-child(odd) {
-        border-radius: $radius;
-        li {
-            width: 100%;
-            border: none;
-            color: $txtcolor;
-            background-color: $bgcolor2;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 5px 10px 5px 20px;
-            &:last-child {
-                width: 20%;
+        &:nth-child(odd) {
+            border-radius: $radius;
+            li {
+                width: 100%;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+                color: $txtcolor;
+                background-color: $bgcolor2;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 5px 10px 5px 20px;
+                &:last-child {
+                    width: 20%;
+                }
             }
         }
     }
@@ -149,5 +152,9 @@ ul {
     & > .list-group-item:first-child {
         border-radius: $radius;
     }
+}
+
+.list-group-item {
+    border: none;
 }
 </style>
