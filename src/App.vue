@@ -1,14 +1,14 @@
 <template>
     <div id="nav">
         <h1>HubFrete</h1>
-        <!-- <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link> -->
     </div>
     <router-view />
 </template>
 
 <style lang="scss">
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");
+$mobile: 360px;
+$desktop: 960px;
 
 #app {
     font-family: "Montserrat", sans-serif;

@@ -26,16 +26,29 @@ export default {
         iptName: String,
         iptSize: Array,
         iptLabel: String,
-        isClicked: String,
     },
 };
 </script>
 <style lang="scss" scoped>
-.form-group {
-    width: fit-content;
-    label {
-        width: 100%;
-        text-align: left;
+$mobile: 360px;
+$max-mobile: 768px;
+$desktop: 960px;
+
+@media (min-width: $desktop) {
+    .form-group {
+        width: fit-content;
+        label {
+            width: 100%;
+            text-align: left;
+        }
+    }
+}
+@media (min-width: $mobile) and (max-width: $max-mobile) {
+    .form-group {
+        width: auto;
+        .form-control {
+            width: 100% !important;
+        }
     }
 }
 </style>
