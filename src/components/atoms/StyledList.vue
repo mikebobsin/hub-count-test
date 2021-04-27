@@ -12,6 +12,7 @@
                 <styled-input
                     v-if="activeEdit == item"
                     :iptSize="['465px', '38px']"
+                    :iptPlaceHolder="item.name"
                     :iptName="'name'"
                     ref="nameInput"
                     v-model:inputedValue.trim="item.name"
@@ -24,6 +25,8 @@
                     v-if="activeEdit == item"
                     :iptSize="['310px', '38px']"
                     :iptName="'zipcode'"
+                    :iptPlaceHolder="item.zipCode"
+                    v-mask="'#####-###'"
                     ref="zipcodeInput"
                     v-model:inputedValue.trim="item.zipCode"
                 />
@@ -62,6 +65,7 @@
 import { mapGetters } from "vuex";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledInput from "@/components/atoms/StyledInput.vue";
+import { useToast } from "vue-toastification";
 export default {
     name: "styled-list",
     components: {
@@ -73,16 +77,29 @@ export default {
             activeEdit: "",
         };
     },
+    setup() {
+        const toast = useToast();
+        return { toast };
+    },
     computed: mapGetters(["getShippingData"]),
     methods: {
         remove(i) {
             this.getShippingData.splice(i, 1);
         },
-        edit(text) {
-            this.activeEdit = text;
+        edit(item) {
+            this.activeEdit = item;
         },
-        hasEdited() {
-            this.activeEdit = "";
+        hasEdited(item) {
+            if (item.name !== "" && item.zipCode !== "") {
+                let regexp = /[0-9]{5}-[\d]{3}/g;
+                if (regexp.test(item.zipCode)) {
+                    this.activeEdit = "";
+                } else {
+                    this.toast.error("Preencha o CEP no formato correto!", {
+                        position: "bottom-left",
+                    });
+                }
+            }
         },
     },
 };

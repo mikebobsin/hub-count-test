@@ -131,6 +131,9 @@ export default {
                     )
                     .then((response) => {
                         this.data.push(response.data);
+                        if (response.data.erro) {
+                            this.$router.push("/404");
+                        }
                         this.region.map((r) => {
                             let indexUf = r.uf.indexOf(response.data.uf);
                             if (indexUf != -1) {
