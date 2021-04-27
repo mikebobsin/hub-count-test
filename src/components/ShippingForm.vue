@@ -38,19 +38,36 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.c-row {
-    width: 100%;
-    margin: 0 auto;
-    padding: 30px;
-    justify-content: center;
-    a {
-        padding: 0 5px;
+$mobile: 360px;
+$max-mobile: 768px;
+$desktop: 960px;
+
+@media (min-width: $desktop) {
+    .c-row {
+        width: 100%;
+        margin: 0 auto;
+        padding: 30px;
+        justify-content: center;
+        a {
+            padding: 0 5px;
+            button {
+                width: 100%;
+            }
+        }
         button {
             width: 100%;
         }
     }
-    button {
-        width: 100%;
+}
+@media (min-width: $mobile) and (max-width: $max-mobile) {
+    .c-row {
+        a {
+            padding: 0 5px 0 0;
+            width: 100%;
+            button {
+                width: 100%;
+            }
+        }
     }
 }
 </style>

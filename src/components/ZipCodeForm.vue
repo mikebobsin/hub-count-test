@@ -36,7 +36,12 @@
             <styled-list />
         </div>
         <div v-if="allowShipping" class="btn-row row">
-            <router-link to="/shipping">
+            <router-link
+                @click="
+                    getShippingData.length === 0 ? $router.push('/404') : ''
+                "
+                to="/shipping"
+            >
                 <styled-button
                     :btnText="'Calcular fretes'"
                     :btnSize="['158px', '38px']"
@@ -49,6 +54,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import StyledButton from "@/components/atoms/StyledButton.vue";
 import StyledInput from "@/components/atoms/StyledInput.vue";
 import StyledList from "@/components/atoms/StyledList.vue";
@@ -72,6 +78,7 @@ export default {
         const toast = useToast();
         return { toast };
     },
+    computed: mapGetters(["getShippingData"]),
     methods: {
         sendClick(e) {
             if (this.name !== "" && this.zipCode !== "") {
@@ -110,22 +117,37 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.c-row {
-    width: 100%;
-    margin: 0 auto;
-    flex-direction: row;
-    align-items: center;
+$mobile: 360px;
+$max-mobile: 768px;
+$desktop: 960px;
+
+@media (min-width: $desktop) {
+    .c-row {
+        width: 100%;
+        margin: 0 auto;
+        flex-direction: row;
+        align-items: center;
+    }
+    .ipt-col {
+        padding-left: 0px;
+    }
+    .btn-col {
+        padding: 15px 0 0 105px;
+    }
+    .btn-row {
+        justify-content: flex-end;
+        padding: 30px 0px;
+        width: 100%;
+        margin: 0 auto;
+    }
 }
-.ipt-col {
-    padding-left: 0px;
-}
-.btn-col {
-    padding: 15px 0 0 105px;
-}
-.btn-row {
-    justify-content: flex-end;
-    padding: 30px 0px;
-    width: 100%;
-    margin: 0 auto;
+
+@media (min-width: $mobile) and (max-width: $max-mobile) {
+    .col {
+        flex-basis: auto;
+    }
+    .btn-row {
+        display: block;
+    }
 }
 </style>
